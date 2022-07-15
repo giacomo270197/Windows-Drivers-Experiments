@@ -128,7 +128,8 @@ FLT_PREOP_CALLBACK_STATUS TracerCreateLog(PFLT_CALLBACK_DATA Data, PCFLT_RELATED
 			bool readAccess = createParams.SecurityContext->DesiredAccess & FILE_READ_DATA;
 			bool writeAccess = createParams.SecurityContext->DesiredAccess & FILE_WRITE_DATA;
 			bool executeAccess = createParams.SecurityContext->DesiredAccess & FILE_EXECUTE;
-			KdPrint(("'%wZ', Read: %s Write: %s Execute: %s", fileNameInformation->Name, readAccess ? "true" : "false", writeAccess ? "true" : "false", executeAccess ? "true" : "false"));
+			bool success = NT_SUCCESS(Data->IoStatus.Status);
+			KdPrint(("'%wZ', Read: %s Write: %s Execute: %s Success: %s", fileNameInformation->Name, readAccess ? "true" : "false", writeAccess ? "true" : "false", executeAccess ? "true" : "false", success ? "true" : "false"));
 		}
 	}
 	else {
